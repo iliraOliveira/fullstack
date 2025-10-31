@@ -2,11 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../types/student';
 import { StudentsServices } from '../services/students';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-students',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, CommonModule],
   templateUrl: './students.html',
   styleUrl: './students.css',
 })
