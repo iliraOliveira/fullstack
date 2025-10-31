@@ -1,0 +1,73 @@
+# .gitignore para projeto full-stack (.NET + Angular)
+# Mantido em português: ignora builds, arquivos gerados, IDEs e artefatos locais
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+
+# Build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Publicações / publish outputs
+publish/
+wwwroot/dist/
+
+# .NET / NuGet
+*.nupkg
+packages/
+project.assets.json
+
+# Arquivos e caches do SDK/CLI
+.dotnet_tool_state.json
+
+# EF / bancos locais
+*.db
+*.sqlite
+student.db
+
+# Configurações locais / segredos (não commitar)
+.env
+.env.*.local
+secrets.json
+
+# Node / Angular
+node_modules/
+client/node_modules/
+client/dist/
+dist/
+client/.angular/
+client/.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Test results / coverage
+TestResults/
+*.trx
+coverage/
+
+# IDE / Editor files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Outros
+*.pid
+*.seed
+
+# End of file
