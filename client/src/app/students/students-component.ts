@@ -7,8 +7,8 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 @Component({
   selector: 'app-students',
   imports: [AsyncPipe, CommonModule],
-  templateUrl: './students.html',
-  styleUrl: './students.css',
+  templateUrl: './students-component.html',
+  styleUrls: ['./students-component.css'],
 })
 export class Students implements OnInit {
 
