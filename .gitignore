@@ -71,3 +71,7 @@ desktop.ini
 *.seed
 
 # End of file
+
+# Backup/metadata from nested git repos (não commitar)
+client/.git.bak/
+client/.git/
