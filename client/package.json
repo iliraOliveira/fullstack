@@ -54,7 +54,7 @@
     "typescript": "~5.9.2"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,html,css,json}": [
+    "*.{ts,tsx,html,css}": [
       "biome format"
     ]
   }
