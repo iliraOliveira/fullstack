@@ -19,11 +19,13 @@ jobs:
         run: |
           dotnet tool install --global dotnet-format
       - name: Run backend lint (dotnet-format check)
+        id: dotnet-format-check
         working-directory: Api
         run: |
-          echo "Running dotnet-format --verify-no-changes"
-          dotnet format --verify-no-changes
+          echo "Running dotnet-format --check"
+          dotnet format --check
       - name: Restore & Build API
+        if: ${{ success() }}
         working-directory: Api
         run: |
           dotnet restore
