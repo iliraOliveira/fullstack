@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-form',
-  imports: [ReactiveFormsModule, JsonPipe, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.css'],
 })
