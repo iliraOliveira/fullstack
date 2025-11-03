@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { StudentsServices } from '../../services/students.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-student-form',
@@ -19,7 +20,10 @@ export class StudentFormComponent implements OnInit, OnDestroy {
   studentService = inject(StudentsServices);
   isEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder, private activatedRouter: ActivatedRoute, private router: Router) {
+  constructor(private fb: FormBuilder,
+    private activatedRouter: ActivatedRoute,
+    private router: Router,
+    private toastrService: ToastrService) {
 
   }
   ngOnDestroy(): void {
@@ -69,6 +73,7 @@ export class StudentFormComponent implements OnInit, OnDestroy {
     this.studentFormSubscription = this.studentService.addStudent(this.form.value).subscribe({
       next: (response) => {
         console.log('Student added successfully:', response);
+        this.toastrService.success('Student added successfully');
         this.router.navigateByUrl('/students');
       },
       error: (error) => {
