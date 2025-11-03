@@ -57,3 +57,29 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+---
+
+## Formatação e Biome
+
+Este projeto usa o Biome como ferramenta de formatação e checagem (instalada localmente como devDependency).
+
+- Para instalar dependências (incluindo o Biome):
+
+```powershell
+cd 'c:\TEMP\Projetos .NET\fullStack\client'
+npm ci
+```
+
+- Scripts úteis no `package.json`:
+
+	- `npm run format` — executa `biome format` (formata os arquivos)
+	- `npm run lint` — executa `biome check` (checa por problemas/estilo)
+
+- Uso recomendado:
+
+	- Local: prefira `npm run format` ou `npm run lint` em vez de depender de uma instalação global do Biome.
+	- CI: o workflow já executa `npm run lint` antes de construir o front-end. Se quiser que a CI corrija automaticamente, ajuste para `npm run format` (não recomendado em PRs sem review).
+	- VS Code: se uma extensão reclamar que não encontra o "Biome binary", aponte a configuração da extensão para `./node_modules/.bin/biome` ou configure-a para usar o binário do workspace / `npx biome`.
+
+Se precisar, eu posso adicionar um pequeno script de verificação pré-commit que rode `npm run lint` automaticamente antes do commit.
