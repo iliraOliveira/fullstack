@@ -4,12 +4,14 @@ Uma aplicação full-stack moderna que combina a robustez do .NET com a flexibil
 
 ## 📚 Índice
 - [Visão Geral](#-visão-geral)
+- [Arquitetura](#-arquitetura)
 - [Tecnologias](#-tecnologias)
 - [Começando](#-começando)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Desenvolvimento](#-desenvolvimento)
 - [Testes](#-testes)
 - [CI/CD](#-cicd)
+- [Roadmap](#-roadmap)
 
 ## 👀 Visão Geral
 
@@ -19,7 +21,7 @@ Este projeto é uma aplicação full-stack que demonstra boas práticas de desen
 - API RESTful com ASP.NET Core
 - Banco de dados SQLite com Entity Framework Core
 - Migrations automatizadas
-- Swagger/OpenAPI para documentação
+- Scalar/OpenAPI para documentação
 
 ### Frontend (Angular)
 - Interface moderna com Angular 20
@@ -27,13 +29,72 @@ Este projeto é uma aplicação full-stack que demonstra boas práticas de desen
 - Formatação automática com Biome
 - Hooks de pré-commit para qualidade de código
 
+## 🏗 Arquitetura
+
+### Backend (Minimal API Architecture)
+
+O backend segue uma arquitetura minimalista e eficiente, focada em simplicidade e performance:
+
+1. **Camada Web (API)**
+   - Controllers RESTful com atributos
+   - Validação via ModelState
+   - OpenAPI (Scalar) para documentação
+   - CORS configurado para desenvolvimento
+   - Padrão REST com verbos HTTP apropriados
+
+2. **Camada de Persistência**
+   - Entity Framework Core com SQLite
+   - Migrations para controle de esquema
+   - Uso de `AsNoTracking()` para queries de leitura
+   - Tratamento de concorrência otimista
+   - DbContext como Unit of Work
+
+3. **Camada de Domínio**
+   - Modelos POCO simples e diretos
+   - Propriedades nullables apropriadas
+   - Validações via ModelState
+   - Respostas HTTP semânticas (200, 404, 400)
+
+4. **Características Técnicas**
+   - Injeção de Dependência nativa
+   - Configuração via `appsettings.json`
+   - Ambiente de dev/prod separados
+   - Tratamento de erros HTTP adequado
+   - Performance otimizada para leituras
+
+### Frontend (Component-Based Architecture)
+
+O frontend utiliza a arquitetura de componentes do Angular com:
+
+1. **Componentes**
+   - Componentes inteligentes (containers)
+   - Componentes de apresentação (UI pura)
+   - Reutilização via composição
+
+2. **Serviços**
+   - Comunicação HTTP com backend
+   - Gerenciamento de estado
+   - Lógica de negócio compartilhada
+
+3. **Roteamento**
+   - Lazy loading de módulos
+   - Guards para proteção de rotas
+   - Resolvers para pré-carregamento
+
+### Comunicação
+
+- API RESTful seguindo padrões HTTP
+- Scalar/OpenAPI para documentação
+- DTOs para contratos bem definidos
+- Tratamento consistente de erros
+
 ## 🛠 Tecnologias
 
 ### Backend
 - ⚡ .NET 10
 - 🗄️ Entity Framework Core
 - 📝 SQLite
-- 📚 Swagger/OpenAPI
+- 📚 Scalar/OpenAPI
 
 ### Frontend
 - 🅰️ Angular 20
@@ -147,6 +208,36 @@ Workflow disponível em `.github/workflows/ci.yml`
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## 📄 Licença
+## � Roadmap
 
-Este projeto está sob a licença MIT.
+Aqui estão as melhorias e evoluções planejadas para o futuro do projeto:
+
+### Fase 1: Melhorias de Infraestrutura
+- [ ] Migrar para PostgreSQL para maior escalabilidade
+- [ ] Adicionar Docker Compose para ambiente de desenvolvimento
+- [ ] Implementar cache distribuído com Redis
+- [ ] Configurar Azure App Service para deploy
+
+### Fase 2: Qualidade e Monitoramento
+- [ ] Aumentar cobertura de testes (meta: 80%)
+- [ ] Adicionar testes E2E com Cypress
+- [ ] Implementar logging estruturado com Serilog
+- [ ] Configurar monitoramento com Application Insights
+
+### Fase 3: Features Técnicas
+- [ ] Implementar autenticação JWT
+- [ ] Adicionar rate limiting na API
+- [ ] Configurar CORS adequadamente
+- [ ] Implementar versionamento de API
+
+### Fase 4: Melhorias de UX
+- [ ] Adicionar tema escuro
+- [ ] Implementar PWA
+- [ ] Melhorar acessibilidade (WCAG 2.1)
+- [ ] Adicionar internacionalização (i18n)
+
+### Fase 5: Escalabilidade
+- [ ] Implementar CQRS para operações complexas
+- [ ] Adicionar filas com RabbitMQ para operações assíncronas
+- [ ] Configurar CDN para assets estáticos
+- [ ] Implementar cache em múltiplas camadas
