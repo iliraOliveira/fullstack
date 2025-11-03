@@ -9,9 +9,7 @@
     "test": "ng test",
     "format": "biome format",
     "lint": "biome check",
-    "prepare": "husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postinstall": "cd .. && husky install client/.husky"
   },
   "prettier": {
     "printWidth": 100,
