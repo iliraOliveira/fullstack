@@ -83,3 +83,39 @@ npm ci
 	- VS Code: se uma extensão reclamar que não encontra o "Biome binary", aponte a configuração da extensão para `./node_modules/.bin/biome` ou configure-a para usar o binário do workspace / `npx biome`.
 
 Se precisar, eu posso adicionar um pequeno script de verificação pré-commit que rode `npm run lint` automaticamente antes do commit.
+
+---
+
+## Pré-commit (Husky + lint-staged)
+
+Este repositório tem um hook de pré-commit configurado para o fluxo de frontend. Detalhes:
+
+- Onde está o hook:
+
+	- `.husky/pre-commit` na raiz do repositório — o hook executa `npx --no-install lint-staged` dentro de `client/`.
+
+- O que ele roda:
+
+	- `lint-staged` (configurado no `client/package.json`) roda `biome format` apenas nos arquivos staged correspondentes a `*.{js,ts,jsx,tsx,html,css,json}`.
+
+- Comandos úteis:
+
+	- Rodar manualmente o que o hook faz (sem commitar):
+
+		```powershell
+		cd 'c:\TEMP\Projetos .NET\fullStack\client'
+		npx --no-install lint-staged
+		```
+
+	- Ignorar o hook em um commit (quando necessário):
+
+		```powershell
+		git commit -m "mensagem" --no-verify
+		```
+
+- Observações:
+
+	- `lint-staged` já re-adiciona automaticamente as mudanças ao índice; portanto não é necessário usar `git add` nas tarefas.
+	- Se preferir que a checagem seja mais restrita (por exemplo só `*.{ts,html,css}`), posso ajustar o `lint-staged` para isso.
+
+---
