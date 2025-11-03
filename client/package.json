@@ -10,7 +10,8 @@
     "format": "biome format",
     "lint": "biome check",
     "prepare": "husky install",
-    "postinstall": "cd .. && husky install app/.husky"
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "prettier": {
     "printWidth": 100,
