@@ -19,6 +19,7 @@ export class StudentFormComponent implements OnInit, OnDestroy {
   paramsSubscription!: Subscription;
   studentService = inject(StudentsServices);
   isEditMode: boolean = false;
+  id = 0;
 
   constructor(private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
@@ -42,6 +43,7 @@ export class StudentFormComponent implements OnInit, OnDestroy {
         next: (response) => {
           console.log('Route params:', response['id']);
           let studentId = response['id'];
+          this.id = studentId;
           if (!studentId) {
             return;
           }
@@ -70,10 +72,29 @@ export class StudentFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    if (!this.isEditMode) {
+      this.addStudent();
+    } else {
+      this.updateStudent();
+    }
+  }
+
+  private updateStudent(): void {
+    this.studentService.updateStudent(this.id, this.form.value).subscribe({
+      next: value => {
+        this.toastrService.success('Student updated successfully', 'Success');
+        this.router.navigateByUrl('/students');
+      },
+      error: (error) => {
+        console.error('Error updating student:', error);
+      }
+    });
+  }
+
+  private addStudent(): void {
     this.studentFormSubscription = this.studentService.addStudent(this.form.value).subscribe({
       next: (response) => {
-        console.log('Student added successfully:', response);
-        this.toastrService.success('Student added successfully');
+        this.toastrService.success('Student added successfully', 'Success');
         this.router.navigateByUrl('/students');
       },
       error: (error) => {

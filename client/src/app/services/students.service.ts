@@ -14,7 +14,8 @@ export class StudentsServices {
 
   getStudents=():Observable<Student[]>=>this.http.get<Student[]>(this.apiUrl);
   addStudent = (data: Student) => this.http.post<Student>(this.apiUrl, data);
-  getStudentById = (id: number): Observable<Student> => this.http.get<Student>(`${this.apiUrl}/${id}`);
-  updateStudent = (id: number, data: Student) => this.http.put<Student>(`${this.apiUrl}/${id}`, data)
+  getStudentById = (id: number): Observable<Student> => this.http.get<Student>(this.apiUrl + '/' + id);
+  updateStudent = (id: number, data: Student) => this.http.put(this.apiUrl + '/' + id, data);
+  deleteStudent = (id: number) => this.http.delete(this.apiUrl + '/' + id);
 
 }

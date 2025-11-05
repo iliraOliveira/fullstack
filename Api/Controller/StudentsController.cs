@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 // https://www.youtube.com/watch?v=WxkI70w-bwY&t=1240s
+//https://www.youtube.com/watch?v=Wit8nv1ZorQ&list=PL0mNG_n6Cohs7RvP3ZivSDkPLcavJ8KLS&index=2
 
 namespace Api.Controller
 {
@@ -55,46 +56,22 @@ namespace Api.Controller
             _context.Students.Remove(student);
             var result = await _context.SaveChangesAsync();
 
-            return result > 0 ? Ok("Student deleted successfully") : BadRequest("Failed to delete student");
+            return result > 0 ? Ok() : BadRequest();
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(int id, Student updatedStudent)
         {
-            if (id != updatedStudent.Id)
-            {
-                return BadRequest("Student ID mismatch");
-            }
+            var studentBd = await _context.Students.FindAsync(id);
+            if (studentBd == null) return NotFound();
+            studentBd.Name = updatedStudent.Name;
+            studentBd.Address = updatedStudent.Address;
+            studentBd.Email = updatedStudent.Email;
+            studentBd.PhoneNumber = updatedStudent.PhoneNumber;
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Entry(updatedStudent).State = EntityState.Modified;
-
-            try
-            {
-                var result = await _context.SaveChangesAsync();
-                return result > 0 ? Ok(updatedStudent) : BadRequest("Failed to update student");
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!await StudentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var result = await _context.SaveChangesAsync();
+            return result > 0 ? Ok(studentBd) : BadRequest("Failed to update student");
         }
 
-        private async Task<bool> StudentExists(int id)
-        {
-            var student = await _context.Students.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
-            return student != null;
-        }
     }
 }
